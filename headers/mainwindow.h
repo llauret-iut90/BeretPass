@@ -2,12 +2,17 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QList>
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
+namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+struct Item {
+    QString title;
+    QString username;
+    QString password;
+};
 
 class MainWindow : public QMainWindow
 {
@@ -19,10 +24,13 @@ public:
 
 private slots:
     void on_Login_clicked();
-
     void on_Register_clicked();
+    void on_AddItem_clicked();
+    void refreshPasswordList();
 
 private:
     Ui::MainWindow *ui;
+    QList<Item> items;
 };
+
 #endif // MAINWINDOW_H
