@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QList>
+#include <QtSql>
+#include <QDebug>
+#include <QFileInfo>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
