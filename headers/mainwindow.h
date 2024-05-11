@@ -30,7 +30,10 @@ private slots:
     void on_Register_clicked();
     void on_AddItem_clicked();
     void refreshPasswordList();
-
+    void on_signUp_clicked();
+    void on_pushButton_clicked();
+    void on_passwordGenerator_clicked();
+    void on_copyPassword_clicked();
 private:
     Ui::MainWindow *ui;
     QList<Item> items;

@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="loginPage1">
        <widget class="QWidget" name="horizontalLayoutWidget">
@@ -118,11 +118,16 @@
        <widget class="QLabel" name="info_db">
         <property name="geometry">
          <rect>
-          <x>250</x>
-          <y>10</y>
-          <width>211</width>
-          <height>16</height>
+          <x>0</x>
+          <y>410</y>
+          <width>111</width>
+          <height>101</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string/>
@@ -193,11 +198,157 @@
               </property>
              </widget>
             </item>
+            <item row="3" column="1">
+             <widget class="QPushButton" name="passwordGenerator">
+              <property name="text">
+               <string>Générer mot de passe</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="generatedPassword">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QPushButton" name="copyPassword">
+              <property name="text">
+               <string>Copier</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="loggedAs">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QGroupBox" name="groupBox_2">
+              <property name="title">
+               <string>Détails</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="registerPage3">
+       <widget class="QLabel" name="registerLabel">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>20</y>
+          <width>311</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Use open source solutions</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>110</y>
+          <width>481</width>
+          <height>311</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Register</string>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_5">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>80</y>
+           <width>261</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="registerUsername_2">
+          <item>
+           <widget class="QLabel" name="labelUsername_2">
+            <property name="text">
+             <string>Username</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="inputUsername_2">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="horizontalLayoutWidget_4">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>150</y>
+           <width>261</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="registerPassword_2">
+          <item>
+           <widget class="QLabel" name="labelPassword_2">
+            <property name="text">
+             <string>Password</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="inputPassword_2">
+            <property name="echoMode">
+             <enum>QLineEdit::Password</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QPushButton" name="signUp">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>220</y>
+           <width>261</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>SignUp</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>10</y>
+          <width>80</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>

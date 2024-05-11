@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/img">
         <file>resources/BeretPassLogo.png</file>
+        <file>resources/db_green.png</file>
+        <file>resources/db_red.png</file>
     </qresource>
 </RCC>
