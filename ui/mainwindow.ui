@@ -79,14 +79,21 @@
           <x>400</x>
           <y>290</y>
           <width>261</width>
-          <height>31</height>
+          <height>71</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="ActionsButtons">
+        <layout class="QVBoxLayout" name="ActionsButtons">
          <item>
           <widget class="QPushButton" name="Login">
            <property name="text">
             <string>Login</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="or_label">
+           <property name="text">
+            <string>or</string>
            </property>
           </widget>
          </item>

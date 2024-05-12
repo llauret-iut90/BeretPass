@@ -10,8 +10,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->or_label->setAlignment(Qt::AlignCenter);
+
     QPixmap pix(":/img/resources/BeretPassLogo.png");
-    ui ->label_pic->setPixmap(pix.scaled(200, 200));
+    ui->label_pic->setPixmap(pix.scaled(200, 200));
     ui->stackedWidget->setCurrentIndex(0);
 
     //sql
