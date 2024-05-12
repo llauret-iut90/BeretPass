@@ -16,23 +16,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     //sql
     QSqlDatabase beretpass = QSqlDatabase::addDatabase("QSQLITE");
-    //chemin du répertoire du projet
-    /*
-     *❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗
-     *❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗
-     *❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗
-     * VÉRIFIE SI ÇA MARCHE DE TON CôTÉ LE CHEMIN
-     *❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗
-     *❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗
-     *❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗
-     */
+    //chemin du répertoire parent du projet
     QString projectDir = QFileInfo(QCoreApplication::applicationFilePath()).absolutePath();
-
+    qDebug() << "chemin" << projectDir;
     //chemin du répertoire parent du projet
     QString dbPath = QDir(projectDir).absolutePath() + "/beret_pass.db";
+    qDebug() << "chemin" << dbPath;
     beretpass.setDatabaseName(dbPath);
 
-
+    // Ouvrir la base de données
     if (!beretpass.open()) {
         QPixmap pix(":img/resources/db_red.png");
         ui->info_db->setPixmap(pix.scaled(30,30));
@@ -52,7 +44,64 @@ MainWindow::MainWindow(QWidget *parent)
         foreach (const QString &table, tables) {
             qDebug() << table;
         }
-    };
+
+        // Vérifier si la base de données est vide en regardant si elle contient des tables
+        // obligé de faire une par une sinon : "not an error Unable to execute multiple statements at a time"
+        if (tables.isEmpty()) {
+            qDebug() << "Database is empty. Creating tables...";
+
+            // Exécuter les instructions SQL pour créer la table 'password'
+            QSqlQuery query(beretpass);
+            if (!query.exec("PRAGMA foreign_keys = off;")) {
+                qDebug() << "Error disabling foreign keys:" << query.lastError().text();
+            }
+            if (!query.exec("BEGIN TRANSACTION;")) {
+                qDebug() << "Error beginning transaction:" << query.lastError().text();
+            }
+            if (!query.exec("DROP TABLE IF EXISTS password;")) {
+                qDebug() << "Error dropping table password:" << query.lastError().text();
+            }
+            if (!query.exec("CREATE TABLE IF NOT EXISTS password ( "
+                            "    id       INTEGER PRIMARY KEY AUTOINCREMENT "
+                            "                     NOT NULL "
+                            "                     UNIQUE, "
+                            "    title    TEXT    NOT NULL, "
+                            "    username TEXT    NOT NULL, "
+                            "    password TEXT    NOT NULL, "
+                            "    user_id  INTEGER REFERENCES users (id)  "
+                            ");")) {
+                qDebug() << "Error creating table password:" << query.lastError().text();
+            }
+
+            // Exécuter les instructions SQL pour créer la table 'users'
+            if (!query.exec("DROP TABLE IF EXISTS users;")) {
+                qDebug() << "Error dropping table users:" << query.lastError().text();
+            }
+            if (!query.exec("CREATE TABLE IF NOT EXISTS users ( "
+                            "    id            INTEGER PRIMARY KEY AUTOINCREMENT "
+                            "                          UNIQUE "
+                            "                          NOT NULL, "
+                            "    username      TEXT    NOT NULL "
+                            "                          UNIQUE, "
+                            "    main_password TEXT    NOT NULL "
+                            ");")) {
+                qDebug() << "Error creating table users:" << query.lastError().text();
+            }
+
+            // Finaliser la transaction
+            if (!query.exec("COMMIT TRANSACTION;")) {
+                qDebug() << "Error committing transaction:" << query.lastError().text();
+            }
+
+            // Réactiver les clés étrangères
+            if (!query.exec("PRAGMA foreign_keys = on;")) {
+                qDebug() << "Error enabling foreign keys:" << query.lastError().text();
+            }
+        }
+        else {
+            qDebug() << "Database contains tables. No need to create schema.";
+        }
+    }
 }
 
 MainWindow::~MainWindow()

@@ -25,7 +25,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc \
-
-DISTFILES += \
-    databases/beret_pass.db \
-    src/data/beret_pass.db
