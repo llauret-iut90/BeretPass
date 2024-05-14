@@ -135,12 +135,12 @@ void MainWindow::on_signUp_clicked()
 
     if (!query.exec()) {
         qDebug() << "Error executing query:" << query.lastError().text();
-        QMessageBox::warning(this, "signUp", "Nom d'utilisateur déjà existant !");
+        QMessageBox::warning(this, "signUp", "Username already exists!");
         return;
     }
 
     if (query.numRowsAffected() > 0) {
-        QString message = QString("Bienvenue %1").arg(username);
+        QString message = QString("Account created with username: %1").arg(username);
         QMessageBox::information(this, "signUp", message);
         ui->stackedWidget->setCurrentIndex(0);
     }
@@ -163,7 +163,7 @@ void MainWindow::on_Login_clicked()
 
     // Vérification des champs vides
     if (username.isEmpty() || password.isEmpty()) {
-        QMessageBox::warning(this, "Login", "Veuillez entrer un nom d'utilisateur et un mot de passe !");
+        QMessageBox::warning(this, "Login", "Please enter an username and a password.");
         return;
     }
 
@@ -178,21 +178,19 @@ void MainWindow::on_Login_clicked()
 
     if (!query.exec()) {
         qDebug() << "Error executing query:" << query.lastError().text();
-        QMessageBox::critical(this, "Error", "Erreur lors de l'exécution de la requête !");
+        QMessageBox::critical(this, "Error", "Error during execution of the request!");
         return;
     }
 
     // Vérification des résultats de la requête
     if (query.exec() && query.next()) {
-        QString message = QString("Salut à toi %1").arg(username);
         ui->loggedAs->setText(username);
-        QMessageBox::information(this, "Login", message);
         ui->stackedWidget->setCurrentIndex(1);
-        qDebug() << "JE SUIS DANS LA PAGE DE MDP";
+        qDebug() << "Login successful";
         refreshPasswordList();
     } else {
         qDebug() << "No rows returned.";
-        QMessageBox::warning(this, "Login", "Nom d'utilisateur ou mot de passe incorrect !");
+        QMessageBox::warning(this, "Login", "Incorrect username or password!");
     }
 }
 
@@ -213,7 +211,7 @@ void MainWindow::on_AddItem_clicked()
     QString password = ui->passwordAddItemInput->text();
 
     if (title.isEmpty() || username.isEmpty() || password.isEmpty()) {
-        QMessageBox::warning(this, "Add Item", "Please fill all the fields");
+        QMessageBox::warning(this, "Add Item", "Please fill all the fields.");
     } else {
         QSqlQuery query;
         query.prepare("INSERT INTO password (title, username, password, user_id) SELECT :title, :username, :password, users.id FROM users WHERE users.username = :main_user;");
@@ -224,7 +222,7 @@ void MainWindow::on_AddItem_clicked()
 
         if (!query.exec()) {
             qDebug() << "Error executing query:" << query.lastError().text();
-            QMessageBox::warning(this, "signUp", "Ne peux pas ajouter le mdp !");
+            QMessageBox::warning(this, "signUp", "Error to insert this password!");
             return;
         }
 
