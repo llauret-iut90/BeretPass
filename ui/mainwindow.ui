@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>BeretPass</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -153,7 +153,7 @@
             <item>
              <widget class="QLabel" name="passwordsLabel">
               <property name="text">
-               <string>Mots de passe</string>
+               <string>Passwords</string>
               </property>
              </widget>
             </item>
@@ -167,7 +167,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="titleAddItemLabel">
               <property name="text">
-               <string>Titre</string>
+               <string>Title</string>
               </property>
              </widget>
             </item>
@@ -177,7 +177,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="usernameAddItemLabel">
               <property name="text">
-               <string>Nom d'utilisateur</string>
+               <string>Username</string>
               </property>
              </widget>
             </item>
@@ -187,7 +187,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="passwordAddItemLabel">
               <property name="text">
-               <string>Mot de passe</string>
+               <string>Password</string>
               </property>
              </widget>
             </item>
@@ -201,14 +201,14 @@
             <item row="3" column="0">
              <widget class="QPushButton" name="AddItem">
               <property name="text">
-               <string>Enregistrer</string>
+               <string>Save</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
              <widget class="QPushButton" name="passwordGenerator">
               <property name="text">
-               <string>Générer mot de passe</string>
+               <string>Generate a password</string>
               </property>
              </widget>
             </item>
@@ -222,7 +222,7 @@
             <item row="4" column="1">
              <widget class="QPushButton" name="copyPassword">
               <property name="text">
-               <string>Copier</string>
+               <string>Copy</string>
               </property>
              </widget>
             </item>
@@ -236,7 +236,7 @@
             <item row="5" column="1">
              <widget class="QGroupBox" name="groupBox_2">
               <property name="title">
-               <string>Détails</string>
+               <string>Details</string>
               </property>
              </widget>
             </item>
