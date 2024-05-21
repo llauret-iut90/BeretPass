@@ -18,14 +18,14 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="loginPage1">
        <widget class="QWidget" name="horizontalLayoutWidget">
         <property name="geometry">
          <rect>
           <x>400</x>
-          <y>170</y>
+          <y>120</y>
           <width>261</width>
           <height>51</height>
          </rect>
@@ -51,7 +51,7 @@
         <property name="geometry">
          <rect>
           <x>400</x>
-          <y>230</y>
+          <y>170</y>
           <width>261</width>
           <height>51</height>
          </rect>
@@ -77,9 +77,9 @@
         <property name="geometry">
          <rect>
           <x>400</x>
-          <y>290</y>
+          <y>220</y>
           <width>261</width>
-          <height>71</height>
+          <height>78</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="ActionsButtons">
@@ -110,7 +110,7 @@
         <property name="geometry">
          <rect>
           <x>100</x>
-          <y>130</y>
+          <y>110</y>
           <width>271</width>
           <height>221</height>
          </rect>
