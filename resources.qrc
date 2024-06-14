@@ -4,4 +4,7 @@
         <file>resources/db_green.png</file>
         <file>resources/db_red.png</file>
     </qresource>
+    <qresource prefix="/qss">
+        <file>resources/styles.qss</file>
+    </qresource>
 </RCC>

@@ -10,6 +10,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    QFile file(":qss/resources/styles.qss");
+    if (file.open(QIODevice::ReadOnly)) {
+        QString styleSheet = QLatin1String(file.readAll());
+        this->setStyleSheet(styleSheet);
+        file.close();
+        qDebug() << "Stylesheet loaded";
+    }
+
     ui->or_label->setAlignment(Qt::AlignCenter);
 
     QPixmap pix(":/img/resources/BeretPassLogo.png");

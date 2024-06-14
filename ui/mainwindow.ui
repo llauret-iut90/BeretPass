@@ -79,7 +79,7 @@
           <x>400</x>
           <y>220</y>
           <width>261</width>
-          <height>78</height>
+          <height>113</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="ActionsButtons">
@@ -133,6 +133,7 @@
         </property>
         <property name="font">
          <font>
+          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
