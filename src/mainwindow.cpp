@@ -10,14 +10,22 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // ouverture de la fenêtre de détails du mot de passe
     connect(ui->passwordsList, &QListWidget::itemDoubleClicked, [this](QListWidgetItem* item) {
         qDebug() << "Item double-clicked:" << item->text();
         // Find the corresponding password item
         for (const Item& passwordItem : this->items) {
-            qDebug() << "Password item title:" << passwordItem.title;
             if (passwordItem.title == item->text()) {
-                // Create and show a new QMessageBox with the password details
-                QMessageBox::information(this, passwordItem.title, "Username: " + passwordItem.username + "\nPassword: " + passwordItem.password);
+                qDebug() << "Found password item:" << passwordItem.title;
+                ui->titleItemDetailInput->setText(passwordItem.title);
+                ui->usernameItemDetailInput->setText(passwordItem.username);
+                ui->passwordItemDetailInput->setText(passwordItem.password);
+
+                ui->oldTitleHiddenField->setText(passwordItem.title);
+                ui->oldUsernameHiddenField->setText(passwordItem.username);
+                ui->oldPasswordHiddenField->setText(passwordItem.password);
+
+                ui->stackedWidget->setCurrentIndex(3);
                 break;
             }
         }
@@ -329,4 +337,68 @@ void MainWindow::on_copyPassword_clicked()
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(textToCopy);
     qDebug() << "Texte copié dans le presse-papiers :" << textToCopy;
+}
+
+// supprime l'item courant
+void MainWindow::on_DeleteItemDetail_clicked()
+{
+    QString title = ui->titleItemDetailInput->text();
+    QString username = ui->usernameItemDetailInput->text();
+    QString password = ui->passwordItemDetailInput->text();
+
+    QSqlQuery query;
+    query.prepare("DELETE FROM password WHERE title = :title AND username = :username AND password = :password;");
+    query.bindValue(":title", title);
+    query.bindValue(":username", username);
+    query.bindValue(":password", password);
+
+    if (!query.exec()) {
+        qDebug() << "Error executing query:" << query.lastError().text();
+        QMessageBox::warning(this, "Delete Item", "Error to delete this password!");
+        return;
+    }
+
+    if (query.numRowsAffected() > 0) {
+        updateItems();
+        refreshPasswordList();
+        ui->stackedWidget->setCurrentIndex(1);
+    }
+}
+
+// sauvegarde les modifications de l'item courant
+void MainWindow::on_SaveItemDetail_clicked()
+{
+    QString title = ui->titleItemDetailInput->text();
+    QString username = ui->usernameItemDetailInput->text();
+    QString password = ui->passwordItemDetailInput->text();
+
+    QString oldTitle = ui->oldTitleHiddenField->text();
+    QString oldUsername = ui->oldUsernameHiddenField->text();
+    QString oldPassword = ui->oldPasswordHiddenField->text();
+
+    QSqlQuery query;
+    query.prepare("UPDATE password SET title = :title, username = :username, password = :password WHERE title = :oldTitle AND username = :oldUsername AND password = :oldPassword;");
+    query.bindValue(":title", title);
+    query.bindValue(":username", username);
+    query.bindValue(":password", password);
+    query.bindValue(":oldTitle", oldTitle);
+    query.bindValue(":oldUsername", oldUsername);
+    query.bindValue(":oldPassword", oldPassword);
+
+    if (!query.exec()) {
+        qDebug() << "Error executing query:" << query.lastError().text();
+        QMessageBox::warning(this, "Save Item", "Error to save this password!");
+        return;
+    }
+
+    if (query.numRowsAffected() > 0) {
+        updateItems();
+        refreshPasswordList();
+        ui->stackedWidget->setCurrentIndex(1);
+    }
+}
+
+void MainWindow::on_CancelItemDetail_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
 }

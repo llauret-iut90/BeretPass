@@ -35,6 +35,9 @@ private slots:
     void on_passwordGenerator_clicked();
     void on_copyPassword_clicked();
     void updateItems();
+    void on_DeleteItemDetail_clicked();
+    void on_SaveItemDetail_clicked();
+    void on_CancelItemDetail_clicked();
 private:
     Ui::MainWindow *ui;
     QList<Item> items;
