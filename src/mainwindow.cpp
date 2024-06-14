@@ -10,6 +10,19 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    connect(ui->passwordsList, &QListWidget::itemDoubleClicked, [this](QListWidgetItem* item) {
+        qDebug() << "Item double-clicked:" << item->text();
+        // Find the corresponding password item
+        for (const Item& passwordItem : this->items) {
+            qDebug() << "Password item title:" << passwordItem.title;
+            if (passwordItem.title == item->text()) {
+                // Create and show a new QMessageBox with the password details
+                QMessageBox::information(this, passwordItem.title, "Username: " + passwordItem.username + "\nPassword: " + passwordItem.password);
+                break;
+            }
+        }
+    });
+
     QFile file(":qss/resources/styles.qss");
     if (file.open(QIODevice::ReadOnly)) {
         QString styleSheet = QLatin1String(file.readAll());
@@ -119,6 +132,26 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::updateItems() {
+    items.clear();
+
+    QString currentUser = ui->loggedAs->text();
+
+    QSqlQuery query;
+    query.prepare("SELECT password.title, password.username, password.password FROM password JOIN users ON users.id = password.user_id WHERE users.username = :username;");
+    query.bindValue(":username", currentUser);
+
+    if (!query.exec()) {
+        qDebug() << "Error executing query:" << query.lastError().text();
+        return;
+    }
+
+    // add items to the list this->items
+    while (query.next()) {
+        this->items.append({query.value(0).toString(), query.value(1).toString(), query.value(2).toString()});
+    }
+}
+
 // Bouton cancel pour retourner au menu il apparît dans la page de register
 void MainWindow::on_pushButton_clicked()
 {
@@ -196,6 +229,7 @@ void MainWindow::on_Login_clicked()
         ui->stackedWidget->setCurrentIndex(1);
         qDebug() << "Login successful";
         refreshPasswordList();
+        updateItems();
     } else {
         qDebug() << "No rows returned.";
         QMessageBox::warning(this, "Login", "Incorrect username or password!");
