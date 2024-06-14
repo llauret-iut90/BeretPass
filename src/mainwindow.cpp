@@ -331,9 +331,34 @@ void MainWindow::on_passwordGenerator_clicked()
     ui->generatedPassword->setText(generatedPassword);
 }
 
+void MainWindow::on_passwordGeneratorDetail_clicked() {
+    const QString characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+    const int passwordLength = 12;
+
+    QString generatedPasswordDetail;
+
+    // Génération du mot de passe aléatoire
+    for (int i = 0; i < passwordLength; ++i) {
+        int index = QRandomGenerator::global()->bounded(characters.length());
+        QChar character = characters.at(index);
+        generatedPasswordDetail.append(character);
+    }
+
+    qDebug() << "Mot de passe généré:" << generatedPasswordDetail;
+    ui->generatedPasswordDetail->setText(generatedPasswordDetail);
+}
+
 void MainWindow::on_copyPassword_clicked()
 {
     QString textToCopy = ui->generatedPassword->text();
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(textToCopy);
+    qDebug() << "Texte copié dans le presse-papiers :" << textToCopy;
+}
+
+void MainWindow::on_copyPasswordDetail_clicked()
+{
+    QString textToCopy = ui->generatedPasswordDetail->text();
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(textToCopy);
     qDebug() << "Texte copié dans le presse-papiers :" << textToCopy;

@@ -33,7 +33,9 @@ private slots:
     void on_signUp_clicked();
     void on_pushButton_clicked();
     void on_passwordGenerator_clicked();
+    void on_passwordGeneratorDetail_clicked();
     void on_copyPassword_clicked();
+    void on_copyPasswordDetail_clicked();
     void updateItems();
     void on_DeleteItemDetail_clicked();
     void on_SaveItemDetail_clicked();
