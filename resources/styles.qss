@@ -11,7 +11,8 @@ QLineEdit {
     border: 2px solid #ccc;
     border-radius: 5px;
     padding: 5px;
-    background-color: #000000;
+    background-color: #fff;
+    color: #000000;
 }
 
 QLineEdit:focus {
@@ -51,5 +52,6 @@ QListWidget {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 5px;
-    background-color: #000000;
+    background-color: #fff;
+    color: #000000;
 }
